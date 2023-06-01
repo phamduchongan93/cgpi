@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# declaring modules function
+clean () {
+  apt-get clean
+}
+
+install_weewix () {
+  apt-get update
+  apt-get install weewx
+}
+
+install_iot () {
+
+}
+
+install_mqtt () {
+  
+}
+
+## Main ## 
+case $1 in 
+  weewix)
+    install_weewix
