@@ -5,8 +5,26 @@ clean () {
   apt-get clean
 }
 
+install_essential () {
+  apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip
+}
+
+install_weewx_dependency () {
+   sudo_check 
+   apt install python3-cheetah
+   apt install 
+
+}
+
+download_weewx () {
+  echo "Downloading weewx file" 
+  wget -o weex-4.10.2 https://weewx.com/downloads/weewx-4.10.2.tar.gz
+  [ "$?" = 1 ] && echo "Failed to download weewx"  & exit 1
+}
+
 wifi_check () {
   # check if wifi connection is available
+  ping -q -c1 google.com &>/dev/null && echo online || echo offline
 }
 
 install_wifi_private () {
@@ -33,6 +51,10 @@ install_weewix () {
   apt-get install weewx
 }
 
+install_database () {
+  # Required if you are using MySQL (MariaDB):
+  apt install mariadb-client python3-mysqldb
+}
 install_iot () {
 
 }
@@ -42,6 +64,45 @@ install_mqtt () {
 }
 
 ## Main ## 
-case $1 in 
-  weewix)
-    install_weewix
+
+main () {
+  while [ -n "$1" ]
+  do
+     case "$1" in
+	 ;;
+       --install-dependency )
+	 install_dependency
+	 shift
+	 ;;
+       --version | -v)
+	 echo '1.0'
+	 ;;
+              * | -*)
+	 echo 'Invalid argument'
+	 help
+	 exit 1
+	 break
+	 ;;
+     esac
+  done
+}
+
+help () {
+  echo "Usuage: $(basename $0) <--con|--dis|-a|-ac>. First, edit the variable to match your bluetooth interface MAC  address. "
+  echo ''
+  echo 'Where:'
+  echo '  -r,--restart          restart the bluetooth headset connection'
+  echo '  -l,--list             show current bluetooth devices'
+  echo '  --dis,--disconnect       disconnect bluetooth headset'
+  echo '  -a,--audio            connect with audio only'
+  echo '  -ac,--audio-mic       connect with both audio and mic'
+  echo '  -m,--mute	        mute the audio'
+  echo '  -um,--unmute	        unmute the audio'
+  echo '  -i,--install	        install dependency'
+
+  echo ''
+  echo 'Example:'
+  echo "  $(basename $0) -c | --check   Check if the device is connected"
+}
+
+main "$@"
