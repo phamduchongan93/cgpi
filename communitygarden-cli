@@ -7,6 +7,7 @@ clean () {
 
 install_essential () {
   apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip
+  apt install network-manager
 }
 
 install_weewx_dependency () {
@@ -28,23 +29,25 @@ wifi_check () {
 }
 
 install_wifi_private () {
-  echo >>
-  network={
+  local username=${1}
+  local password=${2}
+
+  cat  << EOF > /etc/wpa_supplicant/wpa_supplicant.conf
+    network={
          ssid="eduroam"
          scan_ssid=1
          key_mgmt=WPA-EAP
          eap=PEAP
-         identity="*****@*****.edu"
-         anonymous_identity="*****@*****.edu"
-         password="*****"
+         identity="$username@cpp.edu"
+         # anonymous_identity="*****@cpp.edu"
+         password="$password"
          ca_cert="/usr/share/ca-certificates/eduroam.pem"
          phase1="peaplabel=auto peapver=auto"
          phase2="auth=MSCHAPV2"
-       }
-  <
-  wpa_cli -i wlan0 reconfigure
+    } 
+EOF
+  wpa_cli -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 }
-
 
 install_weewix () {
   apt-get update
@@ -55,13 +58,7 @@ install_database () {
   # Required if you are using MySQL (MariaDB):
   apt install mariadb-client python3-mysqldb
 }
-install_iot () {
 
-}
-
-install_mqtt () {
-  
-}
 
 ## Main ## 
 
@@ -69,15 +66,25 @@ main () {
   while [ -n "$1" ]
   do
      case "$1" in
-	 ;;
        --install-dependency )
 	 install_dependency
 	 shift
 	 ;;
+       --install-weewx )
+	 download_weewx 
+	 shift
+	 ;;
+
+       --install-weewx )
+	 download_weewx 
+	 shift
+	 ;;
+
        --version | -v)
 	 echo '1.0'
+	 shift
 	 ;;
-              * | -*)
+       * | -*)
 	 echo 'Invalid argument'
 	 help
 	 exit 1
