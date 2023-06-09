@@ -1,6 +1,9 @@
 #!/bin/bash
+# Author: An Pham
+# Filename: communnity-garden.sh
+# Verstion: testing 
 
-# declaring modules function
+## declaring modules function
 clean () {
   apt-get clean
 }
@@ -10,17 +13,25 @@ install_essential () {
   apt install network-manager
 }
 
+sudo_check () {
+   if [ "$EUID" -ne 0 ]
+     then echo "Please run as root"
+   exit
+   fi
+}
+
 install_weewx_dependency () {
    sudo_check 
    apt install python3-cheetah
-   apt install 
 
 }
 
 download_weewx () {
-  echo "Downloading weewx file" 
-  wget -o weex-4.10.2 https://weewx.com/downloads/weewx-4.10.2.tar.gz
-  [ "$?" = 1 ] && echo "Failed to download weewx"  & exit 1
+  local weewx_url=https://weewx.com/downloads/weewx-4.10.2.tar.gz
+
+  echo "Downloading weewx file..." 
+  wget -o weex-4.10.2 ${weewx_url}
+  [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx"
 }
 
 wifi_check () {
@@ -75,8 +86,8 @@ main () {
 	 shift
 	 ;;
 
-       --install-weewx )
-	 download_weewx 
+       --database-sql )
+         install_database
 	 shift
 	 ;;
 
@@ -94,22 +105,16 @@ main () {
   done
 }
 
+
+## 
 help () {
-  echo "Usuage: $(basename $0) <--con|--dis|-a|-ac>. First, edit the variable to match your bluetooth interface MAC  address. "
+  echo "Usuage: $(basename $0) <--install-dependency|-v>. First, edit the variable to match your bluetooth interface MAC  address. "
   echo ''
   echo 'Where:'
-  echo '  -r,--restart          restart the bluetooth headset connection'
-  echo '  -l,--list             show current bluetooth devices'
-  echo '  --dis,--disconnect       disconnect bluetooth headset'
-  echo '  -a,--audio            connect with audio only'
-  echo '  -ac,--audio-mic       connect with both audio and mic'
-  echo '  -m,--mute	        mute the audio'
-  echo '  -um,--unmute	        unmute the audio'
-  echo '  -i,--install	        install dependency'
-
+  echo '  --install-dependency 	        install dependency'
   echo ''
   echo 'Example:'
-  echo "  $(basename $0) -c | --check   Check if the device is connected"
+  echo "  $(basename $0) -v | --version   Check the version of the program "
 }
 
 main "$@"
