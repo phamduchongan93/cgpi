@@ -24,15 +24,34 @@ sudo_check () {
 
 install_weewx_dependency () {
    sudo_check 
-   apt install python3-cheetah
-
+   apt install python3-cheetah \
+   python3-configobj \
+   python3-pil \
+   python3-serial \
+   python3-usb \
+   python3-pip -y 
+   pip3 install Cheetah3
 }
 
 install_weewx () {
   install_weewx_dependency 
   install_database
   download_weewx
+  
 }
+
+enable_weewx () {
+  cd /home/weewx
+  cp util/systemd/weewx.service /etc/systemd/system
+  systemctl enable weewx
+  systemctl start weewx 
+}
+
+uninstall_weewx () {
+  rm -r /home/weewx
+  rm /etc/systemd/system/weewx.service
+}
+
 
 download_weewx () {
   local weewx_url='https://weewx.com/downloads/weewx-4.10.2.tar.gz'
@@ -42,12 +61,18 @@ download_weewx () {
   echo "Downloading weewx file..." 
   wget -o "${weewx_dest}weex-4.10.2" "${weewx_url}"
   [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx!"
+  cd "${weewx_dest}weex-4.10.2"
+  python3 ./setup.py build
+  python3 ./setup.py install
+  [ "$?" = 0] && echo "Success. The application has been installed at /home/weewx " || echo "Failed to install weewix"
 }
 
 wifi_check () {
   # check if wifi connection is available
   ping -q -c1 google.com &>/dev/null && echo online || echo offline
 }
+
+
 
 install_wifi_private () {
   local username=${1}
@@ -71,8 +96,8 @@ EOF
 }
 
 install_weewix () {
+	  dowload
   apt-get update
-  apt-get install weewx
 }
 
 install_database () {
