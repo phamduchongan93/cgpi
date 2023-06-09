@@ -1,15 +1,17 @@
 #!/bin/bash
-# Author: An Pham
+# Author: An Pham, Myriam
 # Filename: communnity-garden.sh
-# Verstion: testing 
+# Version: testing 
 
 ## declaring modules function
 clean () {
   apt-get clean
+  apt-get autoclean -y
 }
 
 install_essential () {
   apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip
+  # pacakges require for network wifi 
   apt install network-manager
 }
 
@@ -26,12 +28,20 @@ install_weewx_dependency () {
 
 }
 
-download_weewx () {
-  local weewx_url=https://weewx.com/downloads/weewx-4.10.2.tar.gz
+install_weewx () {
+  install_weewx_dependency 
+  install_database
+  download_weewx
+}
 
+download_weewx () {
+  local weewx_url='https://weewx.com/downloads/weewx-4.10.2.tar.gz'
+  local weewx_dest='/var/temp/weewx/'
+
+  mkdir -p "${weewx_dest}"
   echo "Downloading weewx file..." 
-  wget -o weex-4.10.2 ${weewx_url}
-  [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx"
+  wget -o "${weewx_dest}weex-4.10.2" "${weewx_url}"
+  [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx!"
 }
 
 wifi_check () {
@@ -91,6 +101,10 @@ main () {
 	 shift
 	 ;;
 
+       --clean|-c )
+         clean
+	 shift
+	 ;;
        --version | -v)
 	 echo '1.0'
 	 shift
