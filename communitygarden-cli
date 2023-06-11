@@ -24,7 +24,7 @@ sudo_check () {
 
 install_weewx_dependency () {
    sudo_check 
-   apt install python3-cheetah \
+   apt install \
    python3-configobj \
    python3-pil \
    python3-serial \
@@ -35,9 +35,9 @@ install_weewx_dependency () {
 
 install_weewx () {
   install_weewx_dependency 
+  download and install weewx
   install_database
-  download_weewx
-  
+
 }
 
 enable_weewx () {
@@ -53,7 +53,7 @@ uninstall_weewx () {
 }
 
 
-download_weewx () {
+download_and_install_weewx () {
   local weewx_url='https://weewx.com/downloads/weewx-4.10.2.tar.gz'
   local weewx_dest='/var/temp/weewx/'
 
@@ -61,10 +61,13 @@ download_weewx () {
   echo "Downloading weewx file..." 
   wget -o "${weewx_dest}weex-4.10.2" "${weewx_url}"
   [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx!"
-  cd "${weewx_dest}weex-4.10.2"
+  cp -v weewx-4.10.2.tar.gz "${weewx_dest}"
+  cd "${weewx_dest}"
+  echo "Extracting downloaded file"
+  tar xvzf weewx-4.10.2.tar.gz
+  cd weewx-4.10.2 
   python3 ./setup.py build
-  python3 ./setup.py install
-  [ "$?" = 0] && echo "Success. The application has been installed at /home/weewx " || echo "Failed to install weewix"
+  [ "$?" = 0 ] && echo "Success. The application has been installed at /home/weewx " || echo "Failed to install weewix"
 }
 
 wifi_check () {
@@ -95,14 +98,9 @@ EOF
   wpa_cli -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
-install_weewix () {
-	  dowload
-  apt-get update
-}
-
 install_database () {
   # Required if you are using MySQL (MariaDB):
-  apt install mariadb-client python3-mysqldb
+  apt install mariadb-client python3-mysqldb -y
 }
 
 
@@ -113,11 +111,11 @@ main () {
   do
      case "$1" in
        --install-dependency )
-	 install_dependency
+         install_weewx_dependency
 	 shift
 	 ;;
        --install-weewx )
-	 download_weewx 
+	 install_weewx 
 	 shift
 	 ;;
 
@@ -128,6 +126,10 @@ main () {
 
        --clean|-c )
          clean
+	 shift
+	 ;;
+       --download-weewx )
+	 download_and_install_weewx 
 	 shift
 	 ;;
        --version | -v)
