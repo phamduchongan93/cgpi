@@ -7,7 +7,20 @@
 clean () {
   apt-get clean
   apt-get autoclean -y
+  apt-get autoremove -y 
 }
+
+print_status(){
+    local message="$1"
+    local status="$2"
+
+    # Get the number of columns, but subtact 8 to leave space for the status.
+    local columns=$((COLUMNS-8))
+
+    # Print left-aligned message and right-aligned status.
+    printf "%-*s [%s] \n" "$columns" "$message" "$status"
+}
+
 
 install_essential () {
   apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip
@@ -22,7 +35,13 @@ sudo_check () {
    fi
 }
 
+checking_weather_station_connection () {
+    ls /dev/ttyUSB0
+    [ "$?" = 1 ] && print_status "Finding Davis Weather station ..."  "Ok"  || print_status "Finding Davis weather station ..." "Fail"
+}
+
 install_weewx_dependency () {
+	# tested
    sudo_check 
    apt install \
    python3-configobj \
@@ -35,9 +54,8 @@ install_weewx_dependency () {
 
 install_weewx () {
   install_weewx_dependency 
-  download and install weewx
+  download_and_install_weewx
   install_database
-
 }
 
 enable_weewx () {
@@ -48,26 +66,36 @@ enable_weewx () {
 }
 
 uninstall_weewx () {
-  rm -r /home/weewx
+  systemctl stop weewx
+  systemctl daemon-reload
+  rm -r /home/weewx 
   rm /etc/systemd/system/weewx.service
 }
 
+print_line () {
+  echo "============================"
+}
 
 download_and_install_weewx () {
   local weewx_url='https://weewx.com/downloads/weewx-4.10.2.tar.gz'
   local weewx_dest='/var/temp/weewx/'
 
   mkdir -p "${weewx_dest}"
+  print_line 
   echo "Downloading weewx file..." 
   wget -o "${weewx_dest}weex-4.10.2" "${weewx_url}"
-  [ "$?" = 1 ] && echo "Failed to download weewx"  || echo "Fininshed Downloading weewx!"
+  [ "$?" = 1 ] && print_status "Downloading weewx file..."  "Ok"  || print_status "Downloading weewx file.." "Fail"
   cp -v weewx-4.10.2.tar.gz "${weewx_dest}"
   cd "${weewx_dest}"
+  print_line 
   echo "Extracting downloaded file"
   tar xvzf weewx-4.10.2.tar.gz
   cd weewx-4.10.2 
   python3 ./setup.py build
+  python3 ./setup.py install
   [ "$?" = 0 ] && echo "Success. The application has been installed at /home/weewx " || echo "Failed to install weewix"
+  print_line
+  enable_weewx 
 }
 
 wifi_check () {
@@ -118,7 +146,10 @@ main () {
 	 install_weewx 
 	 shift
 	 ;;
-
+       --enable-weewx)
+	 enable_weewx
+	 shift
+	 ;;
        --database-sql )
          install_database
 	 shift
@@ -130,6 +161,14 @@ main () {
 	 ;;
        --download-weewx )
 	 download_and_install_weewx 
+	 shift
+         ;;	
+       --uninstall-weewx )
+	 uninstall_weewx
+	 shift
+	 ;;
+       --check-weather-station )
+         checking_weather_station_connection 
 	 shift
 	 ;;
        --version | -v)
