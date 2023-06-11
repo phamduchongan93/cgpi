@@ -103,8 +103,6 @@ wifi_check () {
   ping -q -c1 google.com &>/dev/null && echo online || echo offline
 }
 
-
-
 install_wifi_private () {
   local username=${1}
   local password=${2}
@@ -147,14 +145,15 @@ main () {
 	 shift
 	 ;;
        --enable-weewx)
+	 # tested
 	 enable_weewx
 	 shift
 	 ;;
        --database-sql )
+	 # tested
          install_database
 	 shift
 	 ;;
-
        --clean|-c )
          clean
 	 shift
