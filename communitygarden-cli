@@ -111,7 +111,8 @@ wifi_check () {
 install_wifi_private () {
   local username=${1}
   local password=${2}
-
+  # WARNING: do not remove the line below,. This is used as backup for comfinguration.
+  cp -v /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
   cat  << EOF > /etc/wpa_supplicant/wpa_supplicant.conf
     network={
          ssid="eduroam"
@@ -131,7 +132,7 @@ EOF
 
 install_database () {
   # Required if you are using MySQL (MariaDB):
-  apt install mariadb-client python3-mysqldb -y
+  apt install mariadb-client python3-mysqldb sqlite3 -y
 }
 
 
