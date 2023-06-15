@@ -192,7 +192,7 @@ main () {
          shift
 	 ;;
        --version | -v)
-	 echo '1.0'
+	 echo 'Community Garden v1.1'
 	 shift
 	 ;;
        * | -*)
