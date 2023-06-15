@@ -105,7 +105,8 @@ download_and_install_weewx () {
 
 wifi_check () {
   # check if wifi connection is available
-  ping -q -c1 google.com &>/dev/null && echo online || echo offline
+  ping -q -c1 1.1.1.1 &>/dev/null && print_status "Checking ping request..." "Ok" || print_status "Checking ping request..." "Fail"
+  nslookup google.com &>/dev/null && print_status "Checking dns service..." "OK" || print_status "Checking dns Service..." "Fail"
 }
 
 install_wifi_private () {
@@ -142,6 +143,10 @@ main () {
   while [ -n "$1" ]
   do
      case "$1" in
+       --check-connection )
+         wifi_check
+	 shift
+	 ;;
        --install-dependency )
          install_essential
 	 shift
@@ -200,6 +205,9 @@ main () {
   done
 }
 
+quick_start () {
+ pass  
+}
 
 ## 
 help () {
@@ -212,6 +220,7 @@ help () {
   echo '  --uninstall-weewx             uninstall weewx'
   echo '  --status-weex                 check status of weewx'
   echo '  --clean | -c                  clean unused packages'
+  echo '  --check-connection            check internet connection'
   echo ''
   echo 'Example:'
   echo "  $(basename $0) -v | --version   Check the version of the program "
