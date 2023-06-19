@@ -22,11 +22,12 @@ print_status(){
     printf "%-*s [%s] \n" "$columns" "$message" "$status"
 }
 
-
 install_essential () {
-  apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip
+  apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip python-pip -y
   # pacakges require for network wifi 
-  apt install network-manager
+  apt install network-manager -y
+  # package for AWS IOT
+  pip install awsiotsdk
 }
 
 sudo_check () {
@@ -38,7 +39,7 @@ sudo_check () {
 
 checking_weather_station_connection () {
     ls /dev/ttyUSB0
-    [ "$?" = 1 ] && print_status "Finding Davis Weather station ..."  "Ok"  || print_status "Finding Davis weather station ..." "Fail"
+    [ "$?" = 1 ] && print_status "Finding Davis Weather station..."  "Ok"  || print_status "Finding Davis weather station ..." "Fail"
 }
 
 install_weewx_dependency () {
