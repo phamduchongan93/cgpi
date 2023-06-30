@@ -19,7 +19,7 @@
     
     
       
-        <title>Meeting Note: - Community Garden</title>
+        <title>Previous Meeting Note: - Community Garden</title>
       
     
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#meeting-note" class="md-skip">
+        <a href="#previous-meeting-note" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Meeting Note:
+              Previous Meeting Note:
             
           </span>
         </div>
@@ -448,14 +448,14 @@
       
       
         <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
-          Installation
+          Install Davis Weather Station
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_1">
           <span class="md-nav__icon md-icon"></span>
-          Installation
+          Install Davis Weather Station
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -465,8 +465,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../community-garden/Installation/" class="md-nav__link">
-        Welcome to Community Garden Documentation
+      <a href="../../../community-garden/Install%20Davis%20Weather%20Station/" class="md-nav__link">
+        Guide to Install Davis Weather Station
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community-garden/Install%20Davis%20Weather%20Station/Sample/" class="md-nav__link">
+        Sample of Davis Station Deployment
       </a>
     </li>
   
@@ -496,14 +510,14 @@
       
       
         <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
-          Solar System
+          Install Solar System
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4_2">
           <span class="md-nav__icon md-icon"></span>
-          Solar System
+          Install Solar System
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -513,7 +527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../community-garden/Solar%20System/" class="md-nav__link">
+      <a href="../../../community-garden/Install%20Solar%20System/" class="md-nav__link">
         Solar System
       </a>
     </li>
@@ -706,7 +720,7 @@
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Meeting Note:
+        Previous Meeting Note:
       </a>
       
     </li>
@@ -760,21 +774,23 @@
                   
 
 
-<h1 id="meeting-note">Meeting Note:</h1>
+<h1 id="previous-meeting-note">Previous Meeting Note:</h1>
 <ul>
+<li>Verifying Davis Station Status.</li>
 <li>Building off-grid system. </li>
-<li>Being Agile.</li>
 <li>Defining and building bucket for logging. </li>
 <li>Getting message system ready for s3 bucket.</li>
 </ul>
 <h1 id="report">Report</h1>
 <ul>
 <li>Hope you are doing well.</li>
-<li>To have a insight look for documentation of the project, please visit cpp.anpham.me. </li>
-<li>Knowing that we try to apply "agile" for the project. Tasks and operations are divided into parts. </li>
-<li>Knowning this project is funded by AWS grant, I would try to implement new technology stack that make us this project less rely on AWS as provider. This approach is due to the opportunity of having new technolgoy stack that has been developed by single board community. This tech stack is maturely tested, supported, and popular to educational community. As for Davis Weather Station, with previous approach of Melvin and Peter, I was able to put together a webpage dashboard for remote viewing. To be clear, our weather station so far does not rely  on AWS. I can install a monitoring station inside the office as well as remote page to convey the sensors. As dicussed before, we won't able to garther the soil sensors for the agricultural group which we listed as requirement. </li>
-<li>I also added one of Professor to our supporter list, we had some discussion before regarding Community Garden project. The scope of discussion is narrawed to network deployment concern. He also mentioned IT department should be one of our stakeholders since we are going to consume soome of their network bandwith. However, right now this is not really our concern since most of our dataset are sensors data. Unless you guys want to have the outdoor camera installed for remote monitoring which require some wiring work for the camera inside the box, we are going to need more bandwith for the camera. </li>
+<li>To have a insight look for technical documentation of the project, please visit https://cppfarm.anpham.me for information regarding maintnance and installation of solar and sensor station.</li>
+<li>Knowing that we try to apply "agile" for the projectp previously. Tasks and operations are divided into parts which are installing weather station, install solar system, and install network. These tasks can be perfomed individually without affecting each other. So far, none defect has been found on the equipment.</li>
+<li>Knowning this project is funded by AWS grant. Beside AWS IoT Core solution provided by AWS, there are other BYO (Build Your Own) solution. This approach is due to the opportunity of having new technolgoy stack that has been developed by single board community. This tech stack is maturely tested, supported, and popular to educational community.  As for Davis Weather Station, with previous approach of Melvin and Peter and new cable installed, I can put together a webpage dashboard for viewing the data. To be clear, our weather station so far does not rely  on AWS. I can install a monitoring station inside the office . As dicussed before, we are not yet  able to garther the soil sensors for the agricultural group which we listed as requirement. But rain metter and windspeed are possible to gather pecisely.</li>
+<li>I also added one of Professor to our supporter list, we had some discussion before regarding Community Garden project during Spring semester. The scope of discussion is narrawed to network deployment concern. He also mentioned IT department should be one of our stakeholders since we are going to consume soome of their network bandwith. However, right now this is not really our concern since most of our dataset are sensors data. Unless you guys want to have the outdoor camera installed for remote monitoring which require some wiring work for the camera inside the box, we are going to need more bandwith for the camera. </li>
 <li>I try to install the solar indoor while letting the pannel faces the window to charge the battery. The solar only charge around 0-7V which is not enough to charge the battery and power the weather station.</li>
+<li>The limitation we have is that weewx can't seem to provide a single json payload. There is an extension of the program, yet it doesn't seem seem to be supported anymore, latest release is weewx-json_1.1. I hope that using python to query the database file to message AWS IoT would has the better chance. Because of this limitation, a S3 bucket has to be created prior to data filtering. Long story short, our station can communicate to AWS Cloud. I will try to test out the python script next week.</li>
+<li>There is other thing is seems like the solar pannel has never been used since no wiring work has been done to solar pannel. I've been contacting our solar vendor which is solarland. If they are not responsive, I just document my wiring work and contact one of the professor from supporter list since she seems to be expert in off-grid solar.</li>
 <li>After July, we should able to record a webinair to demonstrate our tech stack for software side.</li>
 <li>If you have any further concern regarding the deliverable matter of this project, feel free to reach out to me. </li>
 </ul>
