@@ -1,17 +1,28 @@
-# Welcome to MkDocs
+## Overview
+  This is page is dedicated to describe the architect and technical aspect of Community Garden IoT Project.
+  There are three parts of documentation which are guide for installation, AWS device troubleshooting, Data Monitoring.
+  Pay attention to release of the document since each release has some changes in architecture.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Road Map
+  Deploy sensors weather station.
+  Feed data stream to AWS ecosystem.
 
-## Commands
+## Architecture:
+### Grid vs Off Grid Design:
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+  Grid like design, the community garden system would receive the energy provided from residential and commerical building directly. Losing certain piece of data data due to power outtage is possible since back up energy is not factored in the cost. While there is risk involve is low since data collected is farming sensors.
 
-## Project layout
+  Off Grid design, IoT computer and sensors are can be running via solar system, however number of sensors are limited.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+### Installation Guide
+
+  Install community garden script from the github for latest version.
+  To verify the
+    Install weewx and database software for weather station.
+    Testing open hardware sensors for soil measurement.
+
+### Project Component:
+
+  Davis Advantage Pro 2 (weather station)
+  weewix configuration.
+
