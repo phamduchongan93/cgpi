@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#background" class="md-skip">
           Skip to content
         </a>
       
@@ -212,15 +212,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
+  <a href="#background" class="md-nav__link">
+    Background
   </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-guide" class="md-nav__link">
+    Installation Guide
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#road-map" class="md-nav__link">
-    Road Map
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
   </a>
   
 </li>
@@ -236,13 +249,6 @@
           <li class="md-nav__item">
   <a href="#grid-vs-off-grid-design" class="md-nav__link">
     Grid vs Off Grid Design:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#installation-guide" class="md-nav__link">
-    Installation Guide
   </a>
   
 </li>
@@ -720,15 +726,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
+  <a href="#background" class="md-nav__link">
+    Background
   </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-guide" class="md-nav__link">
+    Installation Guide
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#road-map" class="md-nav__link">
-    Road Map
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
   </a>
   
 </li>
@@ -744,13 +763,6 @@
           <li class="md-nav__item">
   <a href="#grid-vs-off-grid-design" class="md-nav__link">
     Grid vs Off Grid Design:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#installation-guide" class="md-nav__link">
-    Installation Guide
   </a>
   
 </li>
@@ -784,28 +796,30 @@
 
   <h1>Home</h1>
 
-<h2 id="overview">Overview</h2>
+<h2 id="background">Background</h2>
 <p>This is page is dedicated to describe the architect and technical aspect of Community Garden IoT Project.
   There are three parts of documentation which are guide for installation, AWS device troubleshooting, Data Monitoring.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Pay attention to release of the document since each release has some changes in architecture.</p>
 </div>
-<h2 id="road-map">Road Map</h2>
+<h3 id="installation-guide">Installation Guide</h3>
+<p>Install community garden script from the github for latest version.
+  To verify the
+    Install weewx and database software for weather station.
+    Testing open hardware sensors for soil measurement.</p>
+<h2 id="roadmap">Roadmap</h2>
 <p>Deploy sensors weather station.
   Feed data stream to AWS ecosystem.</p>
 <h2 id="architecture">Architecture:</h2>
 <h3 id="grid-vs-off-grid-design">Grid vs Off Grid Design:</h3>
 <p>Grid like design, the community garden system would receive the energy provided from residential and commerical building directly. Losing certain piece of data data due to power outtage is possible since back up energy is not factored in the cost. While there is risk involve is low since data collected is farming sensors.</p>
 <p>Off Grid design, IoT computer and sensors are can be running via solar system, however number of sensors are limited.</p>
-<h3 id="installation-guide">Installation Guide</h3>
-<p>Install community garden script from the github for latest version.
-  To verify the
-    Install weewx and database software for weather station.
-    Testing open hardware sensors for soil measurement.</p>
 <h3 id="project-component">Project Component:</h3>
-<p>Davis Advantage Pro 2 (weather station)
-  weewix configuration.</p>
+<ul>
+<li><strong>'communitygarden-cli'</strong> program: software based solution to use for configuring and modifying the single board to fit in the need of deployment environment.</li>
+<li><strong>AWS IoT Core</strong> stack: Used to establish connection with AWS.</li>
+</ul>
 
 
 
