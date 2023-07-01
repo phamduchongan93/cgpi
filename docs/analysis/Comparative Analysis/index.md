@@ -1,7 +1,8 @@
-# Build with AWS 
+# System Build Comparison
+## Build with AWS 
 This is the current build that the community garden has been implementing for the summer build. The AWS IoT Core was introduced by the database team. Although there are features and add-ons for this service, this AWS IoT Core software is an MQTT message broker. since AWS IoT Core is open source, there is no fee involve while using this software.
 
-# Build with Self Hosted Soluation:
+## Build with Self Hosted Soluation:
 - Due to the recent upgrade of raspberry pi 4. The potential running a message broker on the raspberry pi is possible as well as running a web-based dashboard. This new hardware upgrade helps to reduce the reliance on the AWS cloud.
 - Visit the following link for information:
 

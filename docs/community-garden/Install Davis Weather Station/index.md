@@ -12,7 +12,6 @@
 
 ![weewx and davis](weewx-data-logger.png)
 
-
 ## Installation Guide (Hardware)
 
 - Connect all sensor cable to ISS box
@@ -20,7 +19,6 @@
 
 - From Console port connect to Davis Envoy (Console Logger) via usb cable.
 
- 
 ## Installation Guide (Software)
 
 1. Install community garden script from the github for latest version by typing following command `git clone https://github.com/phamduchongan93/cgpi`
