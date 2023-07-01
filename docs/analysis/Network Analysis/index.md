@@ -1,3 +1,4 @@
+
 # Alternative Analysis
 
 
@@ -15,4 +16,11 @@
 |                        |                                                                                                                                                                                                                                                                                                                                                                                                           |                                 |                                                                                                              |
 | **Note** (An)            | I would recommend the first 2 months of the project to rely on the network campus without disclosing the services deployed, since most of the sensors don’t require a lot of bandwidth. However, throughout the project, the bandwidth will increase knowing video streaming services would be deployed and implemented (due to outdoor camera devices), which is believed to start in the Fall semester. |                                 |                                                                                                              |
 | Researcher             | An Pham, Myriam Boutros.                                                                                                                                                                                                                                                                                                                                                                                  |                                 |                                                                                                              |
+
+
+# Bandwith Comparison
+![Comparison](comparison_of_wireless_technology.png)
+
+- **LPAwan** is a new wireless technology that has lowest power consumption with longest range, and it is supported with AWS IoT Core. Consider this protocol for IoT sensors.
+
 
