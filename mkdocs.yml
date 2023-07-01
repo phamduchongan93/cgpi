@@ -1,1 +1,18 @@
-site_name: My Docs
+site_name: Community Garden
+site_author: CPP Community Garden
+copyright: Copyright &copy; 2023 An Pham
+theme:
+  name: material
+#nav:
+#    - Home: index.md
+#    - About: about.md
+      #theme: readthedocs
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+    
+extra:
+ social:
+   - icon: fontawesome/brands/github
