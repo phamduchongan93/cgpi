@@ -1,47 +1,230 @@
 #!/bin/bash
+# Author: An Pham, Myriam
+# Filename: communnity-garden.sh
+# Version: testing 
 
-# declaring modules function
+## declaring modules function
 clean () {
+  sudo_check
   apt-get clean
+  apt-get autoclean -y
+  apt-get autoremove -y 
+}
+
+print_status(){
+    local message="$1"
+    local status="$2"
+
+    # Get the number of columns, but subtact 8 to leave space for the status.
+    local columns=$((COLUMNS-8))
+
+    # Print left-aligned message and right-aligned status.
+    printf "%-*s [%s] \n" "$columns" "$message" "$status"
+}
+
+install_essential () {
+  apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip python-pip -y
+  # pacakges require for network wifi 
+  apt install network-manager -y
+  # package for AWS IOT
+  pip install awsiotsdk
+}
+
+sudo_check () {
+   if [ "$EUID" -ne 0 ]
+     then echo "Please run as root or with sudo"
+   exit
+   fi
+}
+
+checking_weather_station_connection () {
+    ls /dev/ttyUSB0
+    [ "$?" = 1 ] && print_status "Finding Davis Weather station..."  "Ok"  || print_status "Finding Davis weather station ..." "Fail"
+}
+
+install_weewx_dependency () {
+	# tested
+   sudo_check 
+   apt install \
+   python3-configobj \
+   python3-pil \
+   python3-serial \
+   python3-usb \
+   python3-pip -y 
+   pip3 install Cheetah3
+}
+
+install_weewx () {
+  install_weewx_dependency 
+  download_and_install_weewx
+  install_database
+}
+
+enable_weewx () {
+  cd /home/weewx
+  cp util/systemd/weewx.service /etc/systemd/system
+  systemctl enable weewx
+  systemctl start weewx 
+}
+
+status_weewx () {
+  systemctl status weewx 
+}
+
+uninstall_weewx () {
+  systemctl stop weewx
+  systemctl daemon-reload
+  rm -r /home/weewx 
+  rm /etc/systemd/system/weewx.service
+}
+
+print_line () {
+  echo "============================"
+}
+
+download_and_install_weewx () {
+  local weewx_url='https://weewx.com/downloads/weewx-4.10.2.tar.gz'
+  local weewx_dest='/var/temp/weewx/'
+
+  mkdir -p "${weewx_dest}"
+  print_line 
+  echo "Downloading weewx file..." 
+  wget -o "${weewx_dest}weex-4.10.2" "${weewx_url}"
+  [ "$?" = 1 ] && print_status "Downloading weewx file..."  "Ok"  || print_status "Downloading weewx file.." "Fail"
+  cp -v weewx-4.10.2.tar.gz "${weewx_dest}"
+  cd "${weewx_dest}"
+  print_line 
+  echo "Extracting downloaded file"
+  tar xvzf weewx-4.10.2.tar.gz
+  cd weewx-4.10.2 
+  python3 ./setup.py build
+  python3 ./setup.py install
+  [ "$?" = 0 ] && echo "Success. The application has been installed at /home/weewx " || echo "Failed to install weewix"
+  print_line
+  enable_weewx 
 }
 
 wifi_check () {
   # check if wifi connection is available
+  ping -q -c1 1.1.1.1 &>/dev/null && print_status "Checking ping request..." "Ok" || print_status "Checking ping request..." "Fail"
+  nslookup google.com &>/dev/null && print_status "Checking dns service..." "OK" || print_status "Checking dns Service..." "Fail"
 }
 
 install_wifi_private () {
-  echo >>
-  network={
+  local username=${1}
+  local password=${2}
+  # WARNING: do not remove the line below,. This is used as backup for comfinguration.
+  cp -v /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+  cat  << EOF > /etc/wpa_supplicant/wpa_supplicant.conf
+    network={
          ssid="eduroam"
          scan_ssid=1
          key_mgmt=WPA-EAP
          eap=PEAP
-         identity="*****@*****.edu"
-         anonymous_identity="*****@*****.edu"
-         password="*****"
+         identity="$username@cpp.edu"
+         # anonymous_identity="*****@cpp.edu"
+         password="$password"
          ca_cert="/usr/share/ca-certificates/eduroam.pem"
          phase1="peaplabel=auto peapver=auto"
          phase2="auth=MSCHAPV2"
-       }
-  <
-  wpa_cli -i wlan0 reconfigure
+    } 
+EOF
+  wpa_cli -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
-
-install_weewix () {
-  apt-get update
-  apt-get install weewx
+install_database () {
+  # Required if you are using MySQL (MariaDB):
+  apt install mariadb-client python3-mysqldb sqlite3 -y
 }
 
-install_iot () {
-
-}
-
-install_mqtt () {
-  
-}
 
 ## Main ## 
-case $1 in 
-  weewix)
-    install_weewix
+
+main () {
+  while [ -n "$1" ]
+  do
+     case "$1" in
+       --check-connection )
+         wifi_check
+	 shift
+	 ;;
+       --install-dependency )
+         install_essential
+	 shift
+	 ;;
+       --install-weewx )
+	 install_weewx 
+	 shift
+	 ;;
+       --enable-weewx)
+	 # tested
+	 enable_weewx
+	 shift
+	 ;;
+       --database-sql )
+	 # tested
+         install_database
+	 shift
+	 ;;
+       --clean|-c )
+         clean
+	 shift
+	 ;;
+       --install-wifi-eduroam )
+	 shift 
+	 # school username and password without @edu
+	 install_wifi_private "$1" "$2"
+	 shift
+         ;;
+       --download-weewx )
+	 download_and_install_weewx 
+	 shift
+         ;;	
+       --uninstall-weewx )
+	 uninstall_weewx
+	 shift
+	 ;;
+       --check-weather-station )
+         checking_weather_station_connection 
+	 shift
+	 ;;
+       --status-weewx )
+         status_weewx           
+         shift
+	 ;;
+       --version | -v)
+	 echo 'Community Garden v1.1'
+	 shift
+	 ;;
+       * | -*)
+	 echo 'Invalid argument'
+	 help
+	 exit 1
+	 break
+	 ;;
+     esac
+  done
+}
+
+quick_start () {
+ pass  
+}
+
+## 
+help () {
+  echo "Usuage: $(basename $0) <--install-dependency|-v>. First, edit the variable to match your bluetooth interface MAC  address. "
+  echo ''
+  echo 'Where:'
+  echo '  --install-dependency 	        install essential dependency'
+  echo '  --install-weewx  	        download and install weewx'
+  echo '  --download-weewx		download weewx only'
+  echo '  --uninstall-weewx             uninstall weewx'
+  echo '  --status-weex                 check status of weewx'
+  echo '  --clean | -c                  clean unused packages'
+  echo '  --check-connection            check internet connection'
+  echo ''
+  echo 'Example:'
+  echo "  $(basename $0) -v | --version   Check the version of the program "
+}
+
+main "$@"
