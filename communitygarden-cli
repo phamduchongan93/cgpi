@@ -14,7 +14,6 @@ clean () {
 print_status(){
     local message="$1"
     local status="$2"
-
     # Get the number of columns, but subtact 8 to leave space for the status.
     local columns=$((COLUMNS-8))
 
