@@ -68,6 +68,10 @@ install_weewx_dependency () {
    pip3 install Cheetah3
 }
 
+install_home_assitant () {
+  echo 'Home Assitant is listened on port 8123'
+}
+
 install_weewx () {
   install_weewx_dependency 
   download_and_install_weewx
@@ -219,19 +223,22 @@ main () {
 	 install_docker
 	 shift
 	 ;;
-
        --install-docker-compose)
 	 echo "Installing docker-compose ..."
 	 install_docker_compose
 	 shift
 	 ;;
+       --install-home-assistant)
+	 echo "Installing home assistant ..."
+	 install_home_assistant
+	 shift
+         ;;
        * | -*)
 	 echo 'Invalid argument'
 	 help
 	 exit 1
 	 break
 	 ;;
-	
      esac
   done
 }
@@ -248,8 +255,8 @@ help () {
   echo '  --install-dependency 	        install essential dependency'
   echo '  --install-weewx  	        download and install weewx'
   echo '  --install-docker  	        download and install docker'
-
   echo '  --install-docker-compose      download and install docker-compose '
+  echo '  --install-home-assistant      download and install home-assistant'
   echo '  --download-weewx		download weewx only'
   echo '  --download-weewx		download weewx only'
   echo '  --uninstall-weewx             uninstall weewx'
