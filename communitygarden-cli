@@ -195,12 +195,17 @@ main () {
 	 echo 'Community Garden v1.1'
 	 shift
 	 ;;
+       --start-pump)
+	 echo 'Starting pump...'
+	 shift
+	 ;;
        * | -*)
 	 echo 'Invalid argument'
 	 help
 	 exit 1
 	 break
 	 ;;
+	
      esac
   done
 }
@@ -221,6 +226,7 @@ help () {
   echo '  --status-weex                 check status of weewx'
   echo '  --clean | -c                  clean unused packages'
   echo '  --check-connection            check internet connection'
+  echo '  --start-pump                  start the pump valve'
   echo ''
   echo 'Example:'
   echo "  $(basename $0) -v | --version   Check the version of the program "
