@@ -29,6 +29,13 @@ sudo sh get-docker.sh
 usermod -aG docker pi
 }
 
+install_docker_compose () {
+  sudo_check
+  apt-get update
+  apt-get install python3
+  python3 -m pip install docker-compose
+}
+
 install_essential () {
   apt install python3-configobj python3-pil  python3-serial  python3-usb python3-pip python-pip -y
   # pacakges require for network wifi 
@@ -212,6 +219,12 @@ main () {
 	 install_docker
 	 shift
 	 ;;
+
+       --install-docker-compose)
+	 echo "Installing docker-compose ..."
+	 install_docker_compose
+	 shift
+	 ;;
        * | -*)
 	 echo 'Invalid argument'
 	 help
@@ -235,6 +248,9 @@ help () {
   echo '  --install-dependency 	        install essential dependency'
   echo '  --install-weewx  	        download and install weewx'
   echo '  --install-docker  	        download and install docker'
+
+  echo '  --install-docker-compose      download and install docker-compose '
+  echo '  --download-weewx		download weewx only'
   echo '  --download-weewx		download weewx only'
   echo '  --uninstall-weewx             uninstall weewx'
   echo '  --status-weex                 check status of weewx'
