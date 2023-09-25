@@ -1,0 +1,7 @@
+api: 
+  dashboard: true
+  debug: true
+entryPoints:
+  http:
+    address: 80
+
