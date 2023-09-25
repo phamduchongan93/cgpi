@@ -4,7 +4,6 @@ services:
     container_name: mosquitto-mqtt
     image: eclipse-mosquitto
     restart: always
-    network_mode: "host"   
     ports: 
       - 18883:1883
     volumes:
@@ -15,7 +14,6 @@ services:
   home-assistant: 
     container_name: hass
     image: "ghcr.io/home-assistant/home-assistant:stable"
-    network_mode: "host"
     ports:
       - 8123:8123
     volumes:
@@ -27,7 +25,6 @@ services:
   node-red:
     image: nodered/node-red:latest
     container_name: node-red-container
-    network_mode: "host"
     environment:
       - US= America/Los_Angeles
     volumes:
