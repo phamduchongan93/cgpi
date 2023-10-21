@@ -19,6 +19,10 @@
   Example:
     communitygarden-cli -v | --version   Check the version of the program 
 ```
+## Features:
 
+## WIP 
+
+- Add integration of infludb
 ## Demo 
 [![asciicast](https://asciinema.org/a/OeKHvIxzLvE9VpHV41sXwkmrT.svg)](https://asciinema.org/a/OeKHvIxzLvE9VpHV41sXwkmrT)
