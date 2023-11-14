@@ -8,11 +8,11 @@ services:
       - default
     ports: 
       - 1883:1883
-      - 9001:9001
+      - 1990:1990
     volumes:
-      - ./mosquitto-config:/mosquitto/config
-      - ./mosquitto-data:/mosquitto/data
-      - ./mosquitto-log:/mosquitto/log
+      - ./mosquitto/mosquitto-config:/mosquitto/config
+      - ./mosquitto/mosquitto-data:/mosquitto/data
+      - ./mosquitto/mosquitto-log:/mosquitto/log
   home-assistant: 
     container_name: hass
     image: "ghcr.io/home-assistant/home-assistant:stable"
