@@ -1,0 +1,113 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\title{CPP Community Garden Meeting Note}
+\author{An Pham, Myriam}
+\institute{Calpoly Pomona}
+\date{\today}
+\usetheme{Boadilla}
+%\usetheme{Berkeley}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Overview}
+\begin{enumerate}
+  \item Technical Diffculty of Old Sensors.
+  \item Establish the goals of the object that may benefit the campus.
+  \item Broadcast LORA signal.
+  \item Bill of Material for lab environment.
+  \item Revisit the Cloud integration for LORA sensors. 
+   
+ \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Wired version }
+  \begin{itemize}
+    \item Most of Arduino Wire version requrie exposing the wire connector. 
+    \item Can be used indoor environment.
+    \item The effective of the sensors relies on the wireless communication. 
+      \begin{itemize}
+        \item Reliable connection helps to reduce the cost of storing which add power consumption. 
+	\item Pick the right signal sending cycle will help to improve the effectiveness of the sensors. 
+      \end{itemize}
+  \end{itemize}
+ \end{frame}
+ 
+ \begin{frame}[t]
+   \frametitle{Technology of Moisture Sensors}
+   \framesubtitle{subtitle}
+   \begin{itemize}
+     \item There are two type of technology for moisture sensors 
+       \begin{itemize}
+         \item Time-Domain Reflectometry (TDR probes). Two connectors mounted to the ground, It detects the water condensation in the ground. 
+	 \item Capacitance (C-probes, Frequency-Domain Reflectometers). 
+	 \item Theses two technology require professional installation. TDR, 
+	   \item FDR and C-Probes have all worked well, but have theirlimitations. They read only a small volume of soil surrounding the guides or probes. FDR and C-Probes are also sensitive to air gaps between the access tube and the soil (source: College of Agriculture and Life Science - Methods of Measuring for Irrigation Scheduling)
+	   \item the ECOWITT soil moisture sensor used the Capacitance.
+       \end{itemize}
+   \end{itemize}
+ \end{frame}
+
+\begin{frame}
+  \frametitle{ECOWITT Sensors Kit}
+  \begin{itemize}
+    \item This 8 sensors kit can operate near the building where wifi access is available.
+    \item Try to raise the height of solarbox, this would improve the LORAWAN as well.  
+    \item Agriculture water problems deprive from weather and soil moisture. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Both Lora and None Lora Deployment}
+  \begin{itemize}
+    \item Understand the correlation of bandwith and power consumption.
+      \begin{itemize}
+        \item sensors are end devices in Lora network.
+	\item reduce the transmitting size would reduce power consumption. 
+	\item how long does it take to send one message of LoraWAN?
+	\item Seperate the Sensors Network from the could. The Cloud shoud be last mileage component.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{Agenda}
+ \begin{itemize}
+   \item Discuss with Melvin and Myriam regarding DIY gateway solution and Implementing AWS IoT Core
+     \begin{itemize}
+       \item IoT can aggregate the signal sent from devices. 
+       \item Address the previous of Melvin's Research on Greengrass. 
+	 \begin{itemize}
+	   \item What features we need on Greengrass?
+	   \item Can the functions performed remotely?
+	 \end{itemize}
+     \end{itemize}
+   \item Decide the prototype for Product Demo in Fall 2023 presentation.
+     \begin{itemize}
+       \item Outcome: Able to set up LORA soil moisture sensors along with AWS iot Core.
+     \end{itemize}
+ \end{itemize} 
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{Reference }
+  \framesubtitle{Sources}
+ \begin{itemize}
+    \item \url{https://docs.aws.amazon.com/iot/latest/developerguide/connect-to-iot.html} {LORA and Non-LORA AWS IoT Core}.
+    \item College of Agrigulture and Life Science.
+  \end{itemize}
+  
+  
+\end{frame}
+
+
+\end{document}

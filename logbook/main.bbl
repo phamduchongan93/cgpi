@@ -1,0 +1,99 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global}
+    \entry{market-price}{online}{}
+      \name{author}{1}{}{%
+        {{hash=d6721b003104ada24bd9cea38aa8dd8c}{%
+           family={{California ISO}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \strng{fullhash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \strng{bibnamehash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \strng{authorbibnamehash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \strng{authornamehash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \strng{authorfullhash}{d6721b003104ada24bd9cea38aa8dd8c}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \true{uniquework}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Market Price Map}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb http://www.caiso.com/pricemap/Pages/default.aspx
+      \endverb
+      \verb{url}
+      \verb http://www.caiso.com/pricemap/Pages/default.aspx
+      \endverb
+    \endentry
+    \entry{net-metering}{online}{}
+      \list{publisher}{1}{%
+        {SCE}%
+      }
+      \field{sortinit}{N}
+      \field{sortinithash}{98cf339a479c0454fe09153a08675a15}
+      \field{labeltitlesource}{title}
+      \field{title}{Net Surplus Compensation}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.sce.com/regulatory/tariff-books/rates-pricing-choices/net-surplus-compensation
+      \endverb
+      \verb{url}
+      \verb https://www.sce.com/regulatory/tariff-books/rates-pricing-choices/net-surplus-compensation
+      \endverb
+    \endentry
+    \entry{scap-value}{online}{}
+      \name{author}{1}{}{%
+        {{hash=84720df1c10dc2e0383fb365becaa9da}{%
+           family={{scrapmonster}},
+           familyi={s\bibinitperiod}}}%
+      }
+      \strng{namehash}{84720df1c10dc2e0383fb365becaa9da}
+      \strng{fullhash}{84720df1c10dc2e0383fb365becaa9da}
+      \strng{bibnamehash}{84720df1c10dc2e0383fb365becaa9da}
+      \strng{authorbibnamehash}{84720df1c10dc2e0383fb365becaa9da}
+      \strng{authornamehash}{84720df1c10dc2e0383fb365becaa9da}
+      \strng{authorfullhash}{84720df1c10dc2e0383fb365becaa9da}
+      \field{sortinit}{s}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \true{uniquework}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Lithium-ion battery scrap}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.scrapmonster.com/scrap-yard/price/lithium-ion-battery-scrap/122
+      \endverb
+      \verb{url}
+      \verb https://www.scrapmonster.com/scrap-yard/price/lithium-ion-battery-scrap/122
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
